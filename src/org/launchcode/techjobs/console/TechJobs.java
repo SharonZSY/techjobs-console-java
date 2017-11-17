@@ -2,6 +2,7 @@ package org.launchcode.techjobs.console;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -61,7 +62,7 @@ public class TechJobs {
                 String searchTerm = in.nextLine();
 
                 if (searchField.equals("all")) {
-                    System.out.println("Search all fields not yet implemented.");
+                    printJobs(JobData.findByValue(searchTerm));
                 } else {
                     printJobs(JobData.findByColumnAndValue(searchField, searchTerm));
                 }
@@ -110,33 +111,36 @@ public class TechJobs {
 
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
+        String message = "";
 
         if (someJobs.size() >= 1) {
-            for (int i = 0; i < someJobs.size(); i++) {
-
                 for (HashMap<String, String> someJob : someJobs) {
 
-                    for (HashMap.Entry<String, String> entry : someJob.entrySet()) {
-                        String key = entry.getKey();
-                        Object value = entry.getValue();
-                        {
-                            System.out.println(key + value);
-                        }
+                    for (Map.Entry<String, String> entry : someJob.entrySet()) {
+
+
+                        //String key = entry.getKey();
+                        //Object value = entry.getValue();
+
+                        message += entry.getKey()+ ": " + entry.getValue() + "\n";
 
                     }
-
-                    System.out.println("*****\n" + "\n*****");
+                    message += "*****\n" + "\n*****";
                 }
-
+                System.out.println(message);
             }
-        }
+
+
         else {
-                System.out.println("Search term not found. Please try again");
+            System.out.println("Search term not found. Please try again");
 
         }
 
     }
 }
+
+
+
 
 
 
